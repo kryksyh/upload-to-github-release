@@ -5728,6 +5728,7 @@ function run() {
                         console.log("============================= v3 API: updateRelease =============================");
                     }
                     console.log(`Try to update release ${release_name} for ${action_github.context.repo.owner}/${action_github.context.repo.repo}`);
+                    console.log(`Using tar/zip urls ${deploy_release.data.tarball_url} and ${deploy_release.data.zipball_url}`);
                     deploy_release = yield octokit.repos.updateRelease({
                         owner: action_github.context.repo.owner,
                         repo: action_github.context.repo.repo,
@@ -5738,6 +5739,8 @@ function run() {
                         body: deploy_release.data.body || undefined,
                         draft: is_draft,
                         prerelease: is_prerelease,
+                        taball_url: deploy_release.data.tarball_url,
+                        zipball_url: deploy_release.data.zipball_url,
                     });
                     release_id = deploy_release.data.id;
                     release_name = deploy_release.data.name;
